@@ -1,0 +1,38 @@
+name: Update PAC File
+
+on:
+  schedule:
+    - cron: '0 4 * * *' # Запуск каждый день в 4:00 UTC (7:00 по МСК)
+  workflow_dispatch: # Позволяет запускать обновление вручную кнопкой
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Разрешение на запись изменений в репозиторий
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Run script
+      run: python generate_pac.py
+
+    - name: Commit and Push changes
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add antizapret.pac
+        
+        # Проверяем, изменился ли файл, чтобы не делать пустые коммиты
+        if git diff --cached --quiet; then
+          echo "Изменений в списке доменов нет."
+        else
+          git commit -m "Автоматическое обновление списка доменов"
+          git push
+        fi
