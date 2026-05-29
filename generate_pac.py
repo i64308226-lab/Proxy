@@ -1,6 +1,6 @@
 import urllib.request
 
-LIST_URL = "https://antizapret.prostovpn.org/deps/domains-export.txt"
+LIST_URL = "https://antizapret.prostovpn.org:8443/domains-export.txt"
 OUTPUT_FILE = "antizapret.pac"
 PROXY_SERVER = "PROXY proxy.antizapret.prostovpn.org:3128; DIRECT"
 
