@@ -1,7 +1,6 @@
 function FindProxyForURL(url, host) {
     host = host.toLowerCase();
     
-    // 1. База АнтиЗапрета (РФ-блокировки)
     var az_domains = {
     "a105.ru": 1,
     "a109.ru": 1,
@@ -127719,18 +127718,15 @@ function FindProxyForURL(url, host) {
     "play.google.ru": 1
     };
 
-    // 2. База Антицензории (Санкции + Инстаграм/Meta)
     var ac_domains = {
 
     };
 
     var suffix = host;
     while (suffix) {
-        // Проверяем сначала Антицензорию (Инста, ChatGPT и т.д.)
         if (ac_domains.hasOwnProperty(suffix)) {
             return "PROXY proxy.anticenz.org:3128; DIRECT";
         }
-        // Проверяем АнтиЗапрет (Рутрекер, Флибуста и т.д.)
         if (az_domains.hasOwnProperty(suffix)) {
             return "HTTPS proxy-ssl.antizapret.prostovpn.org:1443; DIRECT";
         }
