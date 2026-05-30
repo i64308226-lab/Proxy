@@ -127718,15 +127718,17 @@ function FindProxyForURL(url, host) {
     "play.google.ru": 1
     };
 
-    var ac_domains = {
+    var foreign_domains = {
 
     };
 
     var suffix = host;
     while (suffix) {
-        if (ac_domains.hasOwnProperty(suffix)) {
+        // Сначала проверяем Инсту и зарубежные сервисы
+        if (foreign_domains.hasOwnProperty(suffix)) {
             return "PROXY proxy.anticenz.org:3128; DIRECT";
         }
+        // Затем обычный АнтиЗапрет
         if (az_domains.hasOwnProperty(suffix)) {
             return "HTTPS proxy-ssl.antizapret.prostovpn.org:1443; DIRECT";
         }
