@@ -27,7 +27,7 @@ jobs:
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git add antizapret.pac
+        git add antizapret.pac proxy.txt
         
         # Проверяем, изменился ли файл, чтобы не делать пустые коммиты
         if git diff --cached --quiet; then
